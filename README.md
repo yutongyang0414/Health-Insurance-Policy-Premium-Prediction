@@ -57,6 +57,7 @@ plot_bmi<-ggplot(insurance, aes(x = bmi, y= charges, color = smoker))+
   geom_point()
 grid.arrange(plot_age, plot_bmi, ncol=2)
 ```
+![download](https://github.com/yutongyang0414/Health-Insurance-Policy-Premium-Prediction/blob/main/Figures/download.png)
 
 In the first plot we see that there is a trend that with older age the charges increase. There are also three groups/lines visible. In the second plot we see some sort of trend that with increasing `bmi` the `charges` increase, however this is not very clear. Here there might also be two different groups. After colored all the data with different smoking status, the first plot shows that smoker have relatively higher charges, which make sense. For the second plot, that smoker almost creates a whole new blob of points separate from non-smokers, and that blob sharply rises after bmi = 30, which indicates that there should be interaction between `smoker` and `bmi`.
 
@@ -65,6 +66,8 @@ insurance_new <- mutate(insurance, bmi_groups = cut(bmi, c(0,18.5,25,30,60)))
 ggplot(insurance_new, aes(x = age , y= charges, color = bmi_groups))+
   geom_point()
 ```
+![download-1](https://github.com/yutongyang0414/Health-Insurance-Policy-Premium-Prediction/blob/main/Figures/download-1.png)
+
 Considering CDC official cutoff for obesity again, I grouped `bmi` into four groups: `Underweight`: bmi<=18.5, `Normal weight`:18.5<bmi<24.9, `Overweight`: 25,bmi<29.9, and `Obesity`:bmi>=30.  Frpm the plot, we can see that obesity will lead to higher charges.  But younger people still pay less money than older people in a consistent way so it does not appear that age interacts with `bmi` or `smoker`, meaning that it independently effects the `charge`.
 
 ```{r echo=FALSE}
@@ -82,6 +85,7 @@ plot_region<-ggplot(insurance_new, aes(x = region, y = charges))+
 
 grid.arrange(plot_sex, plot_smoker, plot_child, plot_region, ncol=2, nrow=2)
 ```
+![download-2](https://github.com/yutongyang0414/Health-Insurance-Policy-Premium-Prediction/blob/main/Figures/download-2.png)
 The first boxplot (left upper corner) shows us that females and males pay on avarage the same charges. When looking at the second boxplot (right upper corner) we see that smokers pay higher charges compared to non smokers. Also people with more childres pay more charges and it seems that the region has not an influence on the charges. In all instances the charges have a skewed distribution.
 
 ## 3. Preprocessing
@@ -199,6 +203,9 @@ plot(prediction_rf, test$charges,levels=1:266)+abline(a=0,b=1)
 plot(prediction_xgb, test$charges,levels=1:266)+abline(a=0,b=1)
 
 ```
+![download-3](https://github.com/yutongyang0414/Health-Insurance-Policy-Premium-Prediction/blob/main/Figures/download-3.png)
+![download-4](https://github.com/yutongyang0414/Health-Insurance-Policy-Premium-Prediction/blob/main/Figures/download-4.png)
+![download-5](https://github.com/yutongyang0414/Health-Insurance-Policy-Premium-Prediction/blob/main/Figures/download-5.png)
 
 |model|TestRsquared|
 | :----:  | :----: |
